@@ -1,15 +1,18 @@
+import java.util.ArrayList;
 public class strings
 {   char [] Mass ;
-    String MaxWord="";
-    String MaxPhrase="";
+    ArrayList<String> words = new ArrayList<String>();
+    int p=0;
+    int [] countofwords = new int[1024];
+    String word;
    public void read1(String a)
     {
         Mass = a.toCharArray();
-        findMax();
+        StringToWords();
         cut();
     }
-    public void findMax()
-    {  int i=0,j,k=0;
+    public void StringToWords()
+    {  int i=0,j;
        while (i<Mass.length)
        {    j=0;
 
@@ -17,49 +20,56 @@ public class strings
             {
                 j++;
                 i++;
-                k++;
-            }
-            if (j>MaxWord.length())
-            {   MaxWord="";
-                for (int y=i-j;y<i;y++)
-                {
-                MaxWord=MaxWord+Mass[y];
-                }
 
             }
-            if ((i<Mass.length) && (Mass[i]=='.'))
+
+             word="";
+            for (int y=i-j;y<i;y++)
             {
-             if(k>MaxPhrase.length())
-             {
-                 MaxPhrase="";
-                 for (int y=i-k;y<i;y++)
-                 {
-                     MaxPhrase=MaxPhrase+Mass[y];
-                 }
-                 k=0;
-             }
+            word=word+Mass[y];
+            }
+            if (words.contains(word))
+            {
+                countofwords[words.indexOf(word)]++;
+            }
+            else
+            {
+            countofwords[words.size()]++;
+            words.add(p,word);
+            p++;
             }
             i++;
        }
     }
     public void cut()
     {
-        int temp=0;
-        for (int i=0;i<Mass.length/2;i++)
-        {
-            System.out.print(Mass[i]);
+        if (Mass.length%2==0)
+        {   if (Mass.length>4)
+            {
+                for (int i = 2; i < Mass.length -2; i++)
+                {
+                    System.out.print(Mass[i]);
+                }
+                System.out.println();
+            }
         }
-        if (Mass.length%2!=0)
+        else
         {
-            temp++;
+            for (int i = 0; i < Mass.length; i++)
+            {
+                System.out.print(Mass[i]);
+            }
+            System.out.println();
+        }
 
-        }
-        for (int i=Mass.length/2;i<Mass.length-temp;i++)
-        {
-            System.out.print(Mass[i+temp]);
-        }
-        System.out.println();
 
+    }
+    public void ShowWordCounts()
+    {
+        for (int i=0;i<p;i++)
+        {
+            System.out.println(words.get(i) +" : " + countofwords[i]);
+        }
     }
 
 }
