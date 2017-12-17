@@ -2,7 +2,7 @@ import java.util.ArrayList;
 public class strings
 {   char [] Mass ;
     ArrayList<String> words = new ArrayList<String>();
-    int p=0;
+
     int [] countofwords = new int[1024];
     String word;
    public void read1(String a)
@@ -35,8 +35,7 @@ public class strings
             else
             {
             countofwords[words.size()]++;
-            words.add(p,word);
-            p++;
+            words.add(words.size(),word);
             }
             i++;
        }
@@ -66,7 +65,7 @@ public class strings
     }
     public void ShowWordCounts()
     {
-        for (int i=0;i<p;i++)
+        for (int i=0;i<words.size();i++)
         {
             System.out.println(words.get(i) +" : " + countofwords[i]);
         }
